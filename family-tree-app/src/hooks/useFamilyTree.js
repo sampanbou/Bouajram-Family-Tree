@@ -1,3 +1,5 @@
+// src/hooks/useFamilyTree.js
+
 import { useState, useEffect } from 'react';
 
 const useFamilyTree = () => {
@@ -27,7 +29,7 @@ const useFamilyTree = () => {
     }
     
     // Initialize your familyTree with Mohammad as the first entry in the first generation
-    let initialFamilyTree = [[[rootMember]]]; // Array of arrays with rootMember as the first entry
+    let initialFamilyTree = [[rootMember]]; // Array of arrays with rootMember as the first entry
     
     return initialFamilyTree;
   };
@@ -46,6 +48,7 @@ const useFamilyTree = () => {
       // For demonstration, this call is commented out as the implementation depends on your data structure
       // populateGenerations(rootMember, 0, data); // Adjust this call according to your implementation
       setFamilyTree(initialFamilyTree);
+
     };
 
     buildFamilyTree();

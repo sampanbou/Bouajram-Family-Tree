@@ -9,6 +9,7 @@
   justify-content: center;
   font-size: calc(10px + 2vmin);
   color: white;
+  padding: 20px;
 }
 
 .family-tree {
@@ -43,4 +44,12 @@
 .member-status {
   color: #757575;
   margin-top: 5px;
+}
+
+.generation-row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px; /* Space between cards */
+  margin-bottom: 20px; /* Space between rows */
 }

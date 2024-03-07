@@ -1,8 +1,12 @@
-// src/FamilyMember.js
+// src/components/FamilyMemberCard.js
 import React from 'react';
-import './FamilyMember.css';
+import './FamilyMemberCard.css';
 
-const FamilyMember = ({ member }) => {
+const FamilyMemberCard = ({ member }) => {
+
+  console.log("attempting to see where the problem is:");
+  console.log(member);
+
   const profilePicture = member.photo || (member.gender === 'male' 
     ? '/images/default-male.png' // Replace with actual path
     : '/images/default-female.png'); // Replace with actual path
@@ -19,4 +23,4 @@ const FamilyMember = ({ member }) => {
   );
 };
 
-export default FamilyMember;
+export default FamilyMemberCard;
