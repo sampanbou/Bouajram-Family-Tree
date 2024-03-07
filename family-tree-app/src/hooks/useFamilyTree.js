@@ -1,59 +1,57 @@
-// src/hooks/useFamilyTree.js
-
 import { useState, useEffect } from 'react';
 
 const useFamilyTree = () => {
   const [familyTree, setFamilyTree] = useState([]);
 
-  // Fetch all family member data from the backend
   const fetchFamilyData = async () => {
     try {
       const response = await fetch('http://localhost:4000/api/family-members');
       if (!response.ok) {
         throw new Error('Network response was not ok');
       }
-      const data = await response.json();
-      return data;
+      return await response.json();
     } catch (error) {
       console.error('Failed to fetch family data:', error);
       return [];
     }
   };
 
-  // Initialize the family tree with Mohammad Bou Ajram as the root
   const initializeFamilyTreeWithRoot = (data) => {
-    const rootMember = data.find(member => member.firstName === 'Mohammad' && member.lastName === 'Bou Ajram');
-    if (!rootMember) {
-      console.error('Root family member not found');
-      return [];
-    }
-    
-    // Initialize your familyTree with Mohammad as the first entry in the first generation
-    let initialFamilyTree = [[rootMember]]; // Array of arrays with rootMember as the first entry
-    
-    return initialFamilyTree;
+    return data.find(member => member.firstName === 'Mohammad' && member.lastName === 'Bou Ajram');
   };
 
-  // Placeholder for a function to populate generations
-  // This function should recursively populate children for each member
-  const populateGenerations = (currentMember, currentGenerationIndex, data) => {
-    // Placeholder logic
+  const populateGenerations = (currentMember, currentGenerationIndex, data, tempFamilyTree) => {
+    const children = data.filter(member => member.father === currentMember._id);
+  
+    if (children.length > 0) {
+      if (!tempFamilyTree[currentGenerationIndex + 1]) {
+        tempFamilyTree[currentGenerationIndex + 1] = [];
+      }
+  
+      tempFamilyTree[currentGenerationIndex + 1].push(...children);
+    }
+
+    children.forEach(child => {
+      populateGenerations(child, currentGenerationIndex + 1, data, tempFamilyTree);
+    });
   };
 
   useEffect(() => {
     const buildFamilyTree = async () => {
       const data = await fetchFamilyData();
-      let initialFamilyTree = initializeFamilyTreeWithRoot(data);
-      // Here, you would call populateGenerations for each member of the initialFamilyTree to build out the full family structure
-      // For demonstration, this call is commented out as the implementation depends on your data structure
-      // populateGenerations(rootMember, 0, data); // Adjust this call according to your implementation
-      setFamilyTree(initialFamilyTree);
-
+      const rootMember = initializeFamilyTreeWithRoot(data);
+      
+      if (rootMember) {
+        let tempFamilyTree = [[rootMember]];
+        populateGenerations(rootMember, 0, data, tempFamilyTree);
+        setFamilyTree(tempFamilyTree);
+      }
     };
 
     buildFamilyTree();
   }, []);
 
+  console.log("this is the family tree:", familyTree);
   return { familyTree };
 };
 

@@ -4,9 +4,6 @@ import './FamilyMemberCard.css';
 
 const FamilyMemberCard = ({ member }) => {
 
-  console.log("attempting to see where the problem is:");
-  console.log(member);
-
   const profilePicture = member.photo || (member.gender === 'male' 
     ? '/images/default-male.png' // Replace with actual path
     : '/images/default-female.png'); // Replace with actual path
