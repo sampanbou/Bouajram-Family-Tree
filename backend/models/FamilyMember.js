@@ -5,7 +5,7 @@ const mongoose = require('mongoose');
 const familyMemberSchema = new mongoose.Schema({
   firstName: { type: String, required: true },
   lastName: { type: String, required: true },
-  gender: { type: String, required: true, enum: ['male', 'female', 'other'] },
+  gender: { type: String, required: true, enum: ['male', 'female'] },
   father: { type: mongoose.Schema.Types.ObjectId, ref: 'FamilyMember', default: null },
   mother: { type: mongoose.Schema.Types.ObjectId, ref: 'FamilyMember', default: null },
   spouse: { type: mongoose.Schema.Types.ObjectId, ref: 'FamilyMember', default: null },

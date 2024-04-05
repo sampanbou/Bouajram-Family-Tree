@@ -3,7 +3,6 @@ import React from 'react';
 import './FamilyMemberCard.css';
 
 const FamilyMemberCard = ({ member }) => {
-
   const profilePicture = member.photo || (member.gender === 'male' 
     ? '/images/default-male.png' // Replace with actual path
     : '/images/default-female.png'); // Replace with actual path
@@ -14,7 +13,7 @@ const FamilyMemberCard = ({ member }) => {
         className="profile-picture"
         style={{ backgroundImage: `url(${profilePicture})` }}
       ></div>
-      <div className="member-name">{`${member.firstName} ${member.lastName}`}</div>
+      <div className="member-name"><span className="first-name">{member.firstName}</span><span className="last-name">{member.lastName}</span></div>
       <div className="member-status">{member.isAlive === "yes" ? "Living" : "Deceased"}</div>
     </div>
   );
